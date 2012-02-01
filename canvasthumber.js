@@ -7,13 +7,18 @@
   http://wait-till-i.com/license.txt
 */
 (function(){
-  var s = document.querySelector( '#dropzone' ),
-      o = document.querySelector( 'output' ),
-      c = document.createElement( 'canvas' ),
+  var s  = document.querySelector( '#dropzone' ),
+      o  = document.querySelector( 'output' ),
       cr = document.querySelector( '#crop' ),
-      j = document.querySelector( '#jpeg' ),
+      j  = document.querySelector( '#jpeg' ),
+      c  = document.createElement( 'canvas' ),
       cx = c.getContext( '2d' ),
-      thumbwidth = thumbheight = 100;
+      thumbwidth = thumbheight = 100,
+      crop = false,
+      background = 'white',
+      jpeg = false,
+      quality = 0.8;
+
   function init() {
     if (typeof FileReader !== 'undefined' ) {
       document.body.classList.add( 'dragdrop' );
@@ -49,52 +54,53 @@
           var img = new Image();
           img.src = ev.target.result;
           img.onload = function() {
-            imagetocanvas(this);
-            addtothumbslist();
+            grabformvalues();
+            imagetocanvas( this, thumbwidth, thumbheight, crop, background );
           };
         };
       }
     }
     ev.preventDefault();
   };
-  function addtothumbslist() {
-    var thumb = new Image(),
-        url = '',
-        jpeg = document.querySelector( '#jpeg' ).checked,
-        qu = document.querySelector( '#quality ').value / 100;
-    if ( jpeg ) {
-      url = c.toDataURL( 'image/jpeg' , qu );
-    } else {
-      url = c.toDataURL();
+  function grabformvalues() {
+    thumbwidth  = document.querySelector( '#width' ).value;
+    thumbheight = document.querySelector( '#height' ).value;
+    crop = document.querySelector( '#crop' ).checked;
+    background = document.querySelector( '#bg' ).value;
+    jpeg  = document.querySelector( '#jpeg' ).checked,
+    quality = document.querySelector( '#quality ').value / 100;
+  }
+  function imagetocanvas( img, thumbwidth, thumbheight, crop, background ) {
+    c.width = thumbwidth;
+    c.height = thumbheight;
+    var dimensions = resize( img.width, img.height, thumbwidth, thumbheight );
+    if ( crop ) {
+      c.width = dimensions.w;
+      c.height = dimensions.h;
+      dimensions.x = 0;
+      dimensions.y = 0;
     }
+    if ( background !== 'transparent' ) {
+      cx.fillStyle = background;
+      cx.fillRect ( 0, 0, thumbwidth, thumbheight );
+    }
+    cx.drawImage( 
+      img, dimensions.x, dimensions.y, dimensions.w, dimensions.h 
+    );
+    addtothumbslist( jpeg, quality );
+  };
+  function addtothumbslist( jpeg, quality ) {
+    var thumb = new Image(),
+        url = jpeg ? c.toDataURL( 'image/jpeg' , quality ) : c.toDataURL();
     thumb.src = url;
     thumb.title = Math.round( url.length / 1000 * 100 ) / 100 + ' KB';
     o.appendChild( thumb );
   };
-  function imagetocanvas(img) {
-    thumbwidth = document.querySelector('#width').value || 100;
-    thumbheight = document.querySelector('#height').value || 100;
-    c.width = thumbwidth;
-    c.height = thumbheight;
-    var dims = resize( img.width, img.height, thumbwidth, thumbheight );
-    if ( document.querySelector( '#crop' ).checked ) {
-      c.width = dims.w;
-      c.height = dims.h;
-      dims.x = 0;
-      dims.y = 0;
-    }
-    var bg = document.querySelector( '#bg' ).value;
-    if ( bg !== 'transparent' ) {
-      cx.fillStyle = bg;
-      cx.fillRect ( 0, 0, thumbwidth, thumbheight );
-    }
-    cx.drawImage( img, dims.x, dims.y, dims.w, dims.h );
-  };
   function resize( imagewidth, imageheight, thumbwidth, thumbheight ) {
     var w = 0, h = 0, x = 0, y = 0,
-        widthratio = imagewidth / thumbwidth,
+        widthratio  = imagewidth / thumbwidth,
         heightratio = imageheight / thumbheight,
-        maxratio = Math.max( widthratio, heightratio );
+        maxratio    = Math.max( widthratio, heightratio );
     if ( maxratio > 1 ) {
         w = imagewidth / maxratio;
         h = imageheight / maxratio;
