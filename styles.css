@@ -1,0 +1,107 @@
+* { 
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-size: 15px;
+  font-family: helvetica, arial, sans-serif;
+  padding: 2em;
+}
+footer, section, output, header, aside, figure {
+  display: block;
+}
+h1 {
+  font-size: 24px;
+  padding-bottom: 10px;
+}
+.dragdrop #dropzone {
+  width: 250px;
+  height: 250px;
+  border-radius: 10px;
+  border: 2px dotted #393;
+  background: #cfc;
+  color: #393;
+  text-align: center;
+  line-height: 200px;
+  float: left;
+  margin-right: 10px;
+}
+.dragdrop output {
+  width: 520px;
+  display: block;
+  float: left
+}
+output img {
+  margin: 5px;
+  display: block;
+  float: left;
+}
+footer { 
+  clear:both;
+}
+section, header, footer {
+  width: 800px;
+}
+input[type=number] { width: 3em; }
+input[type=checkbox] { margin-right: 10px }
+label {
+  padding-right: 10px;
+  font-weight: bold;
+}
+#bg {
+  width: 5em;
+}
+.jpeg {
+  opacity: 0.2;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+}
+.crop {
+  opacity: 1;
+  -webkit-transition: 1s;
+  -moz-transition: 1s;
+  -ms-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+}
+.cropon .crop {
+  opacity: 0.2;
+}
+.jpegon .jpeg {
+  opacity: 1;
+}
+.options {
+  background: #060;
+  color: #fff;
+  border-radius: 5px;
+  margin: 1em 0;
+  padding: 5px 10px;
+  box-shadow: 4px 4px 10px rgba(0,0,0,0.8);
+}
+h1 {
+  text-transform: uppercase;
+  color: #333;
+  letter-spacing: -1px;
+}
+output img {
+  display:block;
+}
+output img:hover {
+  box-shadow: 0 0 5px 5px #ccc;
+  border: 1px solid #999;
+}
+h2 {
+  font-size: 12px;
+}
+footer {
+  clear: both;
+  text-align: right;
+  padding: 50px 0 20px 0;
+  font-size: 12px;
+}
+footer a {
+  color: #000;
+}

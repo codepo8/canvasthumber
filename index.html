@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thumbnail generator using HTML5 Canvas and FileReader</title>
+  <meta type="description" content="Batch generate thumbnails by dropping them into the page.">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <link rel="stylesheet" href="styles.css" type="text/css">
+</head>
+<body>
+  <header>
+    <h1>Thumbnail generator</h1>
+    <p>Generate thumbnails in your browser. Simply choose your thumbnail properties and drag and drop images onto the field below.</p>
+  </header>
+  <section>
+  <form>
+  <div class="options">
+   <label for="width">Width:</label><input id="width" type="number" name="width" value="100">
+  <label for="height">Height:</label><input id="height"  type="number"  name="height" value="100">
+  <input type="checkbox" id="crop"><label for="crop">crop thumbnail</label>
+    <span class="crop"><label for="bg">background:</label><input type="text" value="white" id="bg"></span>
+    <input type="checkbox" id="jpeg">
+    <label for="jpeg">JPG</label>
+    <span class="jpeg"><label for="quality">Quality</label>
+    <input type="number" max="100" min="0" value="50" id="quality"> %</span>
+  </div>
+  <div id="dropzone">This demo needs a canvas and FileReader capable browser
+</div>
+  </form>
+  <output><h2>Thumbnails (click to remove, hover to see filesize)</h2></output>
+  </section>
+  <footer>
+    <p>Written by 
+    <a href="http://christianheilmann.com/">Chris Heilmann</a> 
+    (<a href="http://twitter.com/codepo8">@codepo8</a>)
+  </p>
+</footer>
+<script src="canvasthumber.js"></script>
+</body>
+</html>
