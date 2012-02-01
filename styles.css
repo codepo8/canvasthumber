@@ -10,6 +10,9 @@ body {
 footer, section, output, header, aside, figure {
   display: block;
 }
+a { 
+  color: #060;
+}
 h1 {
   font-size: 24px;
   padding-bottom: 10px;
