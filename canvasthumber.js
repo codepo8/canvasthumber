@@ -42,26 +42,36 @@
     }
   };
   function getfiles( ev ) {
-    var files = ev.dataTransfer.files;
+    var files = ev.dataTransfer.files,
+        url = window.URL || window.webkitURL,
+        objURL = url.createObjectURL || false;
+
     if ( files.length > 0 ) {
       var i = files.length;
       while ( i-- ) {
         var file = files[ i ];
         if ( file.type.indexOf( 'image' ) === -1 ) { continue; }
-        var reader = new FileReader();
-        reader.readAsDataURL( file );
-        reader.onload = function ( ev ) {
-          var img = new Image();
-          img.src = ev.target.result;
-          img.onload = function() {
-            grabformvalues();
-            imagetocanvas( this, thumbwidth, thumbheight, crop, background );
+        if(objURL) {
+          loadImage(url.createObjectURL(file));
+        } else {
+          var reader = new FileReader();
+          reader.readAsDataURL( file );
+          reader.onload = function ( ev ) {
+            loadImage(ev.target.result);
           };
-        };
+        }
       }
     }
     ev.preventDefault();
-  };
+  }
+  function loadImage(file) {
+    var img = new Image();
+    img.src = file;
+    img.onload = function() {
+      grabformvalues();
+      imagetocanvas( this, thumbwidth, thumbheight, crop, background );
+    };
+  }
   function grabformvalues() {
     thumbwidth  = document.querySelector( '#width' ).value;
     thumbheight = document.querySelector( '#height' ).value;
