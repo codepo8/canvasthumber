@@ -4,7 +4,7 @@ Creates a set of thumbnails from a set of dropped image, downloadable as a zip.
 
 ## Demo
 
-You can check the github pages version: https://codepo8.github.io/icanvasthumber/
+You can check the github pages version: https://codepo8.github.io/canvasthumber/
 
 And there is a video demo on the YouTubes: TODO
 
