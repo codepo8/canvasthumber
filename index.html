@@ -8,37 +8,54 @@
   <link rel="stylesheet" href="styles.css" type="text/css"></link>
 </head>
 <body>
+  <div class="sidebar">
   <header>
     <h1>Thumbnail generator</h1>
-    <p>Generate thumbnails in your browser. Simply choose your thumbnail properties and drag and drop images onto the field below. Find out more on the <a href="http://hacks.mozilla.org/2012/02/creating-thumbnails-with-drag-and-drop-and-html5-canvas/">MDN blog</a> and <a href="https://github.com/codepo8/canvasthumber">fork/get the source on GitHub</a>.</p>
+    <p>Generate thumbnails in your browser. Simply choose your thumbnail properties and drag and drop images onto the field below.</p>
   </header>
   <section>
   <form>
-  <div class="options">
-   <label for="width">Width:</label><input id="width" type="number" name="width" value="100">
-  <label for="height">Height:</label><input id="height"  type="number"  name="height" value="100">
-  <input type="checkbox" id="crop"><label for="crop">crop thumbnail</label>
-    <span class="crop"><label for="bg">background:</label><input type="text" value="white" id="bg"></span>
-    <input type="checkbox" id="jpeg">
-    <label for="jpeg">JPG</label>
-    <span class="jpeg"><label for="quality">Quality</label>
-    <input type="number" max="100" min="0" value="50" id="quality"> %</span>
-  </div>
   <div id="dropzone">This demo needs a canvas and FileReader capable browser
+  </div>
+  <div class="options">
+    <h2>Options</h2>
+    <fieldset>
+      <legend>Thumbnail dimensions</legend>
+<label for="width">Width:</label><input id="width" type="number" name="width" value="100">
+      <label for="height">Height:</label><input id="height"  type="number"  name="height" value="100">
+    </fieldset>
+    <fieldset>
+      <legend>Thumbnail options</legend>
+      <input type="checkbox" id="crop"><label for="crop">crop thumbnail</label>
+      <span class="crop"><label for="bg">background:</label><input type="color" value="white" id="bg"></span>
+    </fieldset>
+    <fieldset>
+      <legend>File format</legend>
+      <input type="checkbox" id="jpeg">
+      <label for="jpeg">JPG</label>
+      <span class="jpeg"><label for="quality">Quality</label>
+      <input type="range" max="100" min="0" value="50" id="quality"><span></span></span>
+    </fieldset>
+  </div>
 </div>
   </form>
-  <output><h2>Thumbnails (click to remove, hover to see filesize)</h2></output>
+  <output>
+    <p class="teaser"><span>➽</span> Start by dropping some images onto this!</p>    
+    <h2>Thumbnails (click to remove, hover to see filesize)</h2>
+    <button id="remove">Remove all</button>
+    <button id="zip">Download as ZIP</button>
+    <p id="infobar"></p>
+    <ul id="thumbslist"></ul>
+  </output>
   </section>
   <footer>
     <p>Written by 
     <a href="http://christianheilmann.com/">Chris Heilmann</a> 
-    (<a href="http://twitter.com/codepo8">@codepo8</a>)
+    (<a href="http://twitter.com/codepo8">@codepo8</a>)  Find out more on the <a href="http://hacks.mozilla.org/2012/02/creating-thumbnails-with-drag-and-drop-and-html5-canvas/">MDN blog</a> and <a href="https://github.com/codepo8/canvasthumber">fork/get the source on GitHub</a>
   </p>
 </footer>
-<h2>See it in action:</h2>
-
-<iframe width="853" height="480" src="http://www.youtube.com/embed/cYN45FixIgI?rel=0" frameborder="0" allowfullscreen></iframe>
-
+<script src="FileSaver.js"></script>
+<script src="jszip.min.js"></script>
 <script src="canvasthumber.js"></script>
 </body>
 </html>
